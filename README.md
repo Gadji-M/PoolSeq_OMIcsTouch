@@ -1,7 +1,7 @@
 ### Hi there 👋
 
 I'm currently working on evolutionary genomic identification of signatures of positive selection to resistance escalation in major malaria vectors.
-Shell scripts below described the pipeline used for the analyses of the Poolseq GWAS data.
+Shell scripts and R scripts below described the pipeline used for the analyses of the Poolseq GWAS data.
 
 <!--
 **Gadji-M/Gadji-M** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
