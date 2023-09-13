@@ -13,7 +13,7 @@ How to run the command?
 - Invoke "convert_fractions.sh" script for the job.
 
   
-`./convert_fractions.sh -i path/to/the/input/file/input.txt -o path/to/the/input/file/input.txt/output.txt -c ""`
+`./convert_fractions.sh -i path/to/the/input/file/input.txt -o path/to/the/input/file/output.txt -c ""`
 
 Where
 - -i defined the input file
