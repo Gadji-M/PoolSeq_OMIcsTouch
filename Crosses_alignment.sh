@@ -7,13 +7,16 @@ output_dir="/home/mahamat_g/gadjipoolseq/Raw_fastq/bam_files"
 
 # Function to print script usage
 usage() {
-  echo "Usage: $0 [-t <threads>] [-r <reference_genome>] [-o <output_dir>]"
+  echo "Usage: $0 -b <base_dir> [-t <threads>] [-r <reference_genome>] [-o <output_dir>]"
   exit 1
 }
 
 # Parse command-line options
-while getopts ":t:r:o:" opt; do
+while getopts ":b:t:r:o:" opt; do
   case $opt in
+    b)
+      base_dir="$OPTARG"
+      ;;
     t)
       threads="$OPTARG"
       ;;
@@ -34,11 +37,11 @@ while getopts ":t:r:o:" opt; do
   esac
 done
 
-# Shift the parsed options so that "$@" only contains the sample directories
-shift $((OPTIND-1))
-
-# Specify the base directory where the sample folders are located
-base_dir="/home/mahamat_g/gadjipoolseq/Raw_fastq"
+# Check if base_dir is provided
+if [ -z "$base_dir" ]; then
+  echo "Error: -b <base_dir> is a required parameter."
+  usage
+fi
 
 # Create the output directory if it doesn't exist
 mkdir -p "$output_dir"
@@ -61,4 +64,3 @@ for sample_dir in "${base_dir}"/*; do
   # Create a flag file to indicate completion
   touch "${output_dir}/${sample}.paired.bam.done"
 done
-
