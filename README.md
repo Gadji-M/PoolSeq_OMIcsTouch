@@ -3,7 +3,7 @@
 I'm currently working on evolutionary genomic identification of signatures of positive selection associated to resistance escalation in major malaria vectors.
 Shell scripts and R scripts below described the pipeline used for the analyses of the Poolseq GWAS data.
 
-# Alignement script
+# Alignment script
 The `Alignment.sh` script was written to help align samples that have 2 or more read pairs (two or more reads for forward and for reverse reads post pair-end WGS). The alignment uses `bwa mem` algorith to perform.
 How to run the command?
 - invoke `Alignment.sh`
