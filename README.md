@@ -7,7 +7,7 @@ Shell scripts and R scripts below described the pipeline used for the analyses o
 
 
 # Conversion of fractions into decimal numbers
-I created a shell bash script that can allow anyone to convert fractions into decimal numbers for downstream analyses. In my case, i was mainly interested on Major Allele (MAA) and Minor Allele (MIA) frequencies from the PoolSeq GWAS generated using Popoolation2.
+I wrote a shell bash script that can allow anyone to convert fractions into decimal numbers for downstream analyses. In my case, i was mainly interested on Major Allele (MAA) and Minor Allele (MIA) frequencies from the PoolSeq GWAS generated using Popoolation2.
 
 How to run the command?
 - Invoke "convert_fractions.sh" script for the job.
