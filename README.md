@@ -43,7 +43,7 @@ This session will use the shell script `Sorting_marking_duplicates.sh`.
 
 How to run the command line?
 
-`Sorting_marking_duplicates.sh -i /path/to/input_dir -o /path/to/output_dir -m metrics.txt -p /path/to/picard.jar`
+`./Sorting_marking_duplicates.sh -i /path/to/input_dir -o /path/to/output_dir -m metrics.txt -p /path/to/picard.jar`
 
 Where,
 - -i represents the file in which the bam files to process are into;
