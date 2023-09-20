@@ -1,8 +1,22 @@
-##### Hi there 👋
+##### Hi there 👋 😁
 
 I'm currently working on evolutionary genomic identification of signatures of positive selection associated to resistance escalation in major malaria vectors.
-Shell scripts and R scripts below described the pipeline used for the analyses of the Poolseq GWAS data.
+Shell and R scripts below described the pipeline used for the analyses and visualization of the Poolseq GWAS data.
 
+# Quality control script using fastqc and multiqc
+We are going to show here how to use the `Fastq_Quality_check.sh` script to sequentialy perform quality control of your NGS data using `fastqc` then pipe the sdout from `fastqc` into `multiqc` to aggregate the results and visualize. This command helps you to save more time.
+Before to start please ensure that you make the script executable using the following command `chmod +x Fasta_Quality_check.sh`.
+
+To to that,
+- invoke `Fastq_Quality_check.sh` then run this command:
+  
+`./Fast_Quality_check.sh -i path/to/the/folder/containing/FastQ_files -o path/to/the/output_file -t 20`
+
+Where,
+- -i represents the path to the folder where all your fastQ files are located;
+- -o represents the path to the file where you want to save your results (note that if it doesn't exist, it will be automatically created);
+- -t is the number of thread you want to run your job with (you can adjust according to the performance and parameters of your computer).
+  
 # Alignment script
 The `Alignment.sh` script was written to help align samples that have 2 or more read pairs (two or more reads for forward and for reverse reads post pair-end WGS). The alignment uses `bwa mem` algorith to perform.
 How to run the command?
