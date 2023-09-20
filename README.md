@@ -37,6 +37,22 @@ Where
 - -r refers to the reference genome, note that it must be indexed before running (`bwa index genome.fasta`);
 - -o refers to the sorted bam output file.
 
+# Sorting and marking duplicates from .bam files
+Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
+This session will use the shell script `Sorting_marking_duplicates.sh`.
+
+How to run the command line?
+
+`Sorting_marking_duplicates.sh -i /path/to/input_dir -o /path/to/output_dir -m metrics.txt -p /path/to/picard.jar`
+
+Where,
+- -i represents the file in which the bam files to process are into;
+- -o represents the file in which the output will be redirected;
+- -m represents the file in which the metric files of each bam file will be save after marking duplicates;
+- -p represents the path to the tool you will use to process the sorting and deduplication (in this case, picard.jar from the Picard toold).
+
+
+
 # Conversion of fractions into decimal numbers
 I wrote a shell bash script that can allow anyone to convert fractions into decimal numbers for downstream analyses. In my case, i was mainly interested on Major Allele (MAA) and Minor Allele (MIA) frequencies from the PoolSeq GWAS generated using Popoolation2.
 
