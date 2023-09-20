@@ -18,7 +18,14 @@ Where,
 - -t is the number of thread you want to run your job with (you can adjust according to the performance and parameters of your computer).
   
 # Alignment script
-The `Alignment.sh` script was written to help align samples that have 2 or more read pairs (two or more reads for forward and for reverse reads post pair-end WGS). The alignment uses `bwa mem` algorith to perform.
+The `Alignment.sh` script was written to help align samples that have 2 or more read pairs (two or more reads for forward and for reverse reads post pair-end WGS). The alignment uses `bwa mem` algorith to perform alignment and convert the sam output into bam output using samtools.
+In details,
+- It check the number of forward and reverse reads for each sample.
+- If a sample has exactly one pair of forward and reverse reads, the standart aligment usin BWA-MEM will be run;
+- If a sample has two, three, or four pairs of forward and reverse reads, it will combine all the forward reads and all the reverse reads into two separate files and then run the BWA-MEM alignment on the combined reads;
+- After the alignment is complete, the combined read files will be clean;
+- If a sample doesn't have the correct number of reads, a message indicating that the sample is skipped will be print.
+- 
 How to run the command?
 - invoke `Alignment.sh`
 
