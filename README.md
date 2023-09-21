@@ -1,7 +1,7 @@
 ##### Hi there 👋 😁
 
 I'm a PhD student in Cameroon.
-I'm currently working on evolutionary genomic identification of signatures of positive selection associated to resistance escalation in major malaria vectors.
+I'm currently working on evolutionary genomic to identify signatures of positive selection associated to resistance escalation in major malaria vectors.
 Shell and R scripts below described the pipeline used for the analyses and visualization of the Poolseq GWAS data.
 
 # Quality control script using fastqc and multiqc
