@@ -57,6 +57,7 @@ Here, i will show you how to quickly compute mapping and coverage statistics usi
 How to run the command line for mapping statistics?
 
 `./Mapping_statistics.sh -b path/to/the/bam_files/directory -o path/to/the/output_directory -p /path/to/the/picard/Software/directory/ -r /path/to/the/reference/VectorBase-61_AfunestusFUMOZ_Genome.fasta`
+
 Where,
 - -b represents the file in which the aligned bam files are located;
 - -o represents the file in which the output will be redirected (it will be created if it doesn't exist);
