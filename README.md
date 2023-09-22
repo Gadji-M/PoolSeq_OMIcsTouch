@@ -52,6 +52,24 @@ Where,
 - -m represents the file in which the metric files of each bam file will be save after marking duplicates;
 - -p represents the path to the tool you will use to process the sorting and deduplication (in this case, picard.jar from the Picard toold).
 
+# Mapping and coverage statistics
+Here, i will show you how to quickly compute mapping and coverage statistics using picard tools and samtools. This part will use `Mapping_statistics.sh` and `Coverage_statistics.sh` shell scripts.
+How to run the command line for mapping statistics?
+
+`./Mapping_statistics.sh -b path/to/the/bam_files/directory -o path/to/the/output_directory -p /path/to/the/picard/Software/directory/ -r /path/to/the/reference/VectorBase-61_AfunestusFUMOZ_Genome.fasta`
+Where,
+- -b represents the file in which the aligned bam files are located;
+- -o represents the file in which the output will be redirected (it will be created if it doesn't exist);
+- -p represents the directory in which the picard.jar is located;
+- -r represents the path to the reference genome of the organism of interest.
+
+How to run the command line for coverage statistics ?
+
+`./Coverage_statistics.sh -b /path/to/bam_directory -o /path/to/output_directory`
+
+Where,
+-  -b represents the bam files directory;
+-  -o represents the output directory (it will be automatically created if it doesn't exist).
 
 
 # Conversion of fractions into decimal numbers
