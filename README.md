@@ -52,7 +52,20 @@ Where
 - -i represents the input directory containing all the bam files;
 - -o represents the output directory where to store all the unmapped reads for each sample;
 - -t represents the number of threads for parallel processing (it depend on your computer capacity).
-  
+
+# Generate reads (R1 and R2) from a paired fastq file
+
+Here we are going to generate the forward and the reverse reads from a single paired fastq file using `Seqtk` which is a command-line tool for processing sequences in various file formats, such as FASTA and FASTQ. It is often used in bioinformatics and genomics research for tasks like subsetting, converting between formats, and generating random sequences. Seqtk is a versatile and efficient tool that can be a valuable addition to your bioinformatics toolkit.
+For that, we are going to use the `Separate_fastq_reads.sh` shell script with fastq files as input.
+How to run the command ?
+- invoke `Separate_fastq_reads.sh` and run
+
+ `./script.sh -i /path/to/input_directory -o /path/to/output_directory -t 10`
+
+ Where
+ - -i represents the input directory containing all the fastq files;
+ - -o represents the output directory where to store all the forward (R1) and reverse (R2) for each sample;
+ - -t represents the number of threads for parallel processing (it depend on your computer capacity).
 
 # Sorting and marking duplicates from .bam files
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
