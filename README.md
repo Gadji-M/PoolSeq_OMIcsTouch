@@ -67,6 +67,31 @@ How to run the command ?
  - -o represents the output directory where to store all the forward (R1) and reverse (R2) for each sample;
  - -t represents the number of threads for parallel processing (it depend on your computer capacity).
 
+
+# Microbial Classification using unmapped reads via Kraken2 (MCUUR)
+Here, i am going to show you how to assess the microbial contribution in our sample.
+To remind, what i did was to remove host genome (Anopheles funestus) by mapping to the AfunF3 genome avalaible on vectorbase.org then now i'm going to use the non-host reads to characterize microbial composition.
+For this job, i'm going to use `kraken2` which is a taxonomic sequence classifier that assigns taxonomic labels to DNA sequences. Kraken examines the k-mers within a query sequence and uses the information within those k-mers to query a database. That database maps k-mers to the lowest common ancestor (LCA) of all genomes known to contain a given k-mer. To run the classification, you need to download the kraken2 database or build it in your computer.
+A Kraken 2 database is a directory containing at least 3 files:
+
+- `hash.k2d`: Contains the minimizer to taxon mappings;
+- `opts.k2d`: Contains information about the options used to build the database; 
+- `taxo.k2d`: Contains taxonomy information used to build the database.
+
+Once you have the database to which you will classify your reads, you can:
+- invoke `Kraken2_classification.sh` and run
+
+`bash kraken_script.sh -i /path/to/fastq_directory -d /path/to/kraken_database -o /path/to/output_directory -u /path/to/unclassified_directory -c /path/to/classified_directory -t 50`
+
+Where
+- -i represents the input directory containing paired fastq files;
+- -d represents the kraken2 database to which you want to classify your reads;
+- -o represents the output directory where the classification reports will be stored (The directory is created automatically if it doesn't exist);
+- -u represents the directory where the unclassified sequences will be stored (The directory is created automatically if it doesn't exist);
+- -c represents the directory where the classified sequences will be stored (The directory is created automatically if it doesn't exist);
+- -t represents the number of threads to use for parallel processing (it depends of your computer capacity).
+
+
 # Sorting and marking duplicates from .bam files
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
 This session will use the shell script `Sorting_marking_duplicates.sh`.
