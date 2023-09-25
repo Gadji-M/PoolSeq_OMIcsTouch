@@ -38,6 +38,22 @@ Where
 - -r refers to the reference genome, note that it must be indexed before running (`bwa index genome.fasta`);
 - -o refers to the sorted bam output file.
 
+# Extraction of unmapped reads for Metagenomic analyses (EUMA)
+
+I am going to show you how to perform metagenomic analyses using unmapped reads from WGS with the aim to identify microbial signature that could be potentially associated to insecticide super-resistance in malaria vectors.
+During the WGS of malaria vectors, beside the entire genome that will be sequenced, other organisms genomes present in the sample are also sequenced. This involved bacteria, parasites, Eukaryotes, Viruses, funga and even unknown organisms refer as `dark reads` that will need further investigation to discover new species using De Novo assembly for example.
+We are going to use here the script `Extract_unmapped_reads.sh` to retrieve unmapped reads from bam files then convert them into fastq files.
+How to run the command?
+- invoke `Extract_unmapped_reads.sh` and run
+
+`./Extract_unmaped.sh -i /path/to/input_directory -o /path/to/input_directory/Unmapped_reads -t 20`
+
+Where
+- -i represents the input directory containing all the bam files;
+- -o represents the output directory where to store all the unmapped reads for each sample;
+- -t represents the number of threads for parallel processing (it depend on your computer capacity).
+  
+
 # Sorting and marking duplicates from .bam files
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
 This session will use the shell script `Sorting_marking_duplicates.sh`.
