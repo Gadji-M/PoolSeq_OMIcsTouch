@@ -3,7 +3,7 @@
 # Default values
 input_dir=""
 output_dir=""
-threads=1
+threads=5
 
 # Function to print script usage
 print_usage() {
