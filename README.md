@@ -53,7 +53,7 @@ Where
 - -o represents the output directory where to store all the unmapped reads for each sample;
 - -t represents the number of threads for parallel processing (it depend on your computer capacity).
 
-# Generate reads (R1 and R2) from a paired fastq file
+# Generate forward and reverse reads (R1 and R2) from a paired fastq file
 
 Here we are going to generate the forward and the reverse reads from a single paired fastq file using `Seqtk` which is a command-line tool for processing sequences in various file formats, such as FASTA and FASTQ. It is often used in bioinformatics and genomics research for tasks like subsetting, converting between formats, and generating random sequences. Seqtk is a versatile and efficient tool that can be a valuable addition to your bioinformatics toolkit.
 For that, we are going to use the `Separate_fastq_reads.sh` shell script with fastq files as input.
