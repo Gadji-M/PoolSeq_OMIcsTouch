@@ -4,7 +4,19 @@ I'm a PhD student in Cameroon.
 I'm currently working on evolutionary genomic to identify signatures of positive selection associated to resistance escalation in major malaria vectors.
 Shell and R scripts below described the pipeline used for the analyses and visualization of the Poolseq GWAS data.
 
-[Quality Control script combining fastq and multiqc](#section-1)
+
+## Table of Contents
+
+1. #### [Quality Control script combining fastq and multiqc](#section-1)
+2. #### [Alignment script](#section-2)
+3. #### [Extraction of unmapped reads for Metagenomic analyses (EUMA)](#section-3)
+4. #### [Generate forward and reverse reads (R1 and R2) from a paired fastq file](#section-4)
+5. #### [Microbial Classification using unmapped reads via Kraken2 (MCUUR)](#section-5)
+6. #### [Converting fastq to fasta files](#section-6)
+7. #### [Extraction of candidate bacteria taxa](#section-7)
+8. #### [Sorting and marking duplicates from .bam files](#section-8)
+9. #### [Computing mapping and coverage statistics](#section-9)
+10. #### [Conversion of fractions into decimal numbers](#section-10)
 
 # Quality control script using fastqc and multiqc
 I am going to show here how to use the `Fastq_Quality_check.sh` script i wrote to sequentialy perform quality control of your NGS data using `fastqc` then pipe the sdout from `fastqc` into `multiqc` to aggregate the results and visualize. This command helps you to save more time and speed your analyses.
@@ -126,7 +138,6 @@ How to run the command?
 
 
 
-
 # Sorting and marking duplicates from .bam files
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
 This session will use the shell script `Sorting_marking_duplicates.sh`.
@@ -141,7 +152,7 @@ Where,
 - -m represents the file in which the metric files of each bam file will be save after marking duplicates;
 - -p represents the path to the tool you will use to process the sorting and deduplication (in this case, picard.jar from the Picard toold).
 
-# Mapping and coverage statistics
+# Computing mapping and coverage statistics
 Here, i will show you how to quickly compute mapping and coverage statistics using picard tools and samtools. This part will use `Mapping_statistics.sh` and `Coverage_statistics.sh` shell scripts.
 How to run the command line for mapping statistics?
 
