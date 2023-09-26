@@ -81,7 +81,7 @@ A Kraken 2 database is a directory containing at least 3 files:
 Once you have the database to which you will classify your reads, you can:
 - invoke `Kraken2_classification.sh` and run
 
-`bash kraken_script.sh -i /path/to/fastq_directory -d /path/to/kraken_database -o /path/to/output_directory -u /path/to/unclassified_directory -c /path/to/classified_directory -t 50`
+`./Kraken2_classification.sh -i /path/to/fastq_directory -d /path/to/kraken_database -o /path/to/output_directory -u /path/to/unclassified_directory -c /path/to/classified_directory -t 50`
 
 Where
 - -i represents the input directory containing paired fastq files;
@@ -104,6 +104,26 @@ Where
 - -i represents the input directory containing the fastq files;
 - -o represents the output directory where the fasta files will be stored (The directory is created automatically if it doesn't exist);
 - -t represents the number of threads to use for parallel processing (it depends of your computer capacity).
+
+
+# Extraction of candidate bacteria taxa
+
+Here, i am going to show how to extract bacteria sequences of interest using a python3 script i wrote based on the taxid generated post-kraken2 classification.
+What we want to do is to extract all the most abundant bacteria sequence reads in our various samples. Remember when we did microbial classification using the `Kraken2_classification.sh` script, we generated an output file containing classified sequences.
+We are now going to extract the most abundant sequences of interest for subsequent analyses.
+For that, we are going to use the `Extract_sequences_taxid.py` script.
+How to run the command?
+- invoke `Extract_sequences_taxid.py` and run
+
+ `python3 Extract_sequences.py -i input.fasta -o output.fasta -l id_list.txt`
+
+ Where
+ - -i represents the input file in fasta format where sequences will be extracted based on list of taxid;
+ - -o represents the output file containing the extracted sequences of interest;
+ - -l represents the list of taxid of all the bacteria taxa to be extracted.
+
+
+
 
 # Sorting and marking duplicates from .bam files
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
