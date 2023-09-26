@@ -19,6 +19,8 @@ Shell and R scripts below described the pipeline used for the analyses and visua
 10. #### [Conversion of fractions into decimal numbers](#section-10)
 
 # Quality control script using fastqc and multiqc
+<a name="section-1"></a>
+
 I am going to show here how to use the `Fastq_Quality_check.sh` script i wrote to sequentialy perform quality control of your NGS data using `fastqc` then pipe the sdout from `fastqc` into `multiqc` to aggregate the results and visualize. This command helps you to save more time and speed your analyses.
 Before to start please ensure that you make the script executable using the following command `chmod +x Fastq_Quality_check.sh`.
 
@@ -33,6 +35,8 @@ Where,
 - -t is the number of thread you want to run your job with (you can adjust according to the performance and parameters of your computer).
   
 # Alignment script
+<a name="section-2"></a>
+
 The `Alignment.sh` script was written to help align samples that have 2 or more read pairs (two or more reads for forward and for reverse reads post pair-end WGS). The alignment uses `bwa mem` algorith to perform alignment and convert the sam output into bam output using samtools.
 In details,
 - It check the number of forward and reverse reads for each sample.
@@ -53,6 +57,7 @@ Where
 - -o refers to the sorted bam output file.
 
 # Extraction of unmapped reads for Metagenomic analyses (EUMA)
+<a name="section-3"></a>
 
 I am going to show you how to perform metagenomic analyses using unmapped reads from WGS with the aim to identify microbial signature that could be potentially associated to insecticide super-resistance in malaria vectors.
 During the WGS of malaria vectors, beside the entire genome that will be sequenced, other organisms genomes present in the sample are also sequenced. This involved bacteria, parasites, Eukaryotes, Viruses, funga and even unknown organisms refer as `dark reads` that will need further investigation to discover new species using De Novo assembly for example.
@@ -68,6 +73,7 @@ Where
 - -t represents the number of threads for parallel processing (it depend on your computer capacity).
 
 # Generate forward and reverse reads (R1 and R2) from a paired fastq file
+<a name="section-4"></a>
 
 Here we are going to generate the forward and the reverse reads from a single paired fastq file using `Seqtk` which is a command-line tool for processing sequences in various file formats, such as FASTA and FASTQ. It is often used in bioinformatics and genomics research for tasks like subsetting, converting between formats, and generating random sequences. Seqtk is a versatile and efficient tool that can be a valuable addition to your bioinformatics toolkit.
 For that, we are going to use the `Separate_fastq_reads.sh` shell script with fastq files as input.
@@ -83,6 +89,8 @@ How to run the command ?
 
 
 # Microbial Classification using unmapped reads via Kraken2 (MCUUR)
+<a name="section-5"></a>
+
 Here, i am going to show you how to assess the microbial contribution in our sample.
 To remind, what i did was to remove host genome (Anopheles funestus) by mapping to the AfunF3 genome avalaible on vectorbase.org then now i'm going to use the non-host reads to characterize microbial composition.
 For this job, i'm going to use `kraken2` which is a taxonomic sequence classifier that assigns taxonomic labels to DNA sequences. Kraken examines the k-mers within a query sequence and uses the information within those k-mers to query a database. That database maps k-mers to the lowest common ancestor (LCA) of all genomes known to contain a given k-mer. To run the classification, you need to download the kraken2 database or build it in your computer.
@@ -106,6 +114,8 @@ Where
 - -t represents the number of threads to use for parallel processing (it depends of your computer capacity).
 
 # Converting fastq to fasta files
+<a name="section-6"></a>
+
 Here i'll show how to convert fastq files into fasta files for downstream analyses like phylogenetic analysis. 
 We are going to use the `fastq2fasta_file.sh` script here. The conversion is done via `awk` which is a versatile and powerful text-processing tool commonly used in Unix-like operating systems. 
 It is primarily used for searching, extracting, and manipulating text data within files, making it a popular choice for tasks like data transformation, data analysis, and report generation.
@@ -121,6 +131,7 @@ Where
 
 
 # Extraction of candidate bacteria taxa
+<a name="section-7"></a>
 
 Here, i am going to show how to extract bacteria sequences of interest using a python3 script i wrote based on the taxid generated post-kraken2 classification.
 What we want to do is to extract all the most abundant bacteria sequence reads in our various samples. Remember when we did microbial classification using the `Kraken2_classification.sh` script, we generated an output file containing classified sequences.
@@ -137,8 +148,9 @@ How to run the command?
  - -l represents the list of taxid of all the bacteria taxa to be extracted.
 
 
-
 # Sorting and marking duplicates from .bam files
+<a name="section-8"></a>
+
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
 This session will use the shell script `Sorting_marking_duplicates.sh`.
 
@@ -153,6 +165,8 @@ Where,
 - -p represents the path to the tool you will use to process the sorting and deduplication (in this case, picard.jar from the Picard toold).
 
 # Computing mapping and coverage statistics
+<a name="section-9"></a>
+
 Here, i will show you how to quickly compute mapping and coverage statistics using picard tools and samtools. This part will use `Mapping_statistics.sh` and `Coverage_statistics.sh` shell scripts.
 How to run the command line for mapping statistics?
 
@@ -174,6 +188,8 @@ Where,
 
 
 # Conversion of fractions into decimal numbers
+<a name="section-10"></a>
+
 I wrote a shell bash script that can allow anyone to convert fractions into decimal numbers for downstream analyses. In my case, i was mainly interested on Major Allele (MAA) and Minor Allele (MIA) frequencies from the PoolSeq GWAS generated using Popoolation2.
 
 How to run the command?
