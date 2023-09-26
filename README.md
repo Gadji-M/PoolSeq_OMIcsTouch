@@ -4,6 +4,8 @@ I'm a PhD student in Cameroon.
 I'm currently working on evolutionary genomic to identify signatures of positive selection associated to resistance escalation in major malaria vectors.
 Shell and R scripts below described the pipeline used for the analyses and visualization of the Poolseq GWAS data.
 
+[Quality Control script combining fastq and multiqc](#section-1)
+
 # Quality control script using fastqc and multiqc
 I am going to show here how to use the `Fastq_Quality_check.sh` script i wrote to sequentialy perform quality control of your NGS data using `fastqc` then pipe the sdout from `fastqc` into `multiqc` to aggregate the results and visualize. This command helps you to save more time and speed your analyses.
 Before to start please ensure that you make the script executable using the following command `chmod +x Fastq_Quality_check.sh`.
