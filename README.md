@@ -60,7 +60,7 @@ For that, we are going to use the `Separate_fastq_reads.sh` shell script with fa
 How to run the command ?
 - invoke `Separate_fastq_reads.sh` and run
 
- `./script.sh -i /path/to/input_directory -o /path/to/output_directory -t 10`
+ `./Separate_fastq_reads.sh -i /path/to/input_directory -o /path/to/output_directory -t 10`
 
  Where
  - -i represents the input directory containing all the fastq files;
@@ -91,6 +91,19 @@ Where
 - -c represents the directory where the classified sequences will be stored (The directory is created automatically if it doesn't exist);
 - -t represents the number of threads to use for parallel processing (it depends of your computer capacity).
 
+# Converting fastq to fasta files
+Here i'll show how to convert fastq files into fasta files for downstream analyses like phylogenetic analysis. 
+We are going to use the `fastq2fasta_file.sh` script here. The conversion is done via `awk` which is a versatile and powerful text-processing tool commonly used in Unix-like operating systems. 
+It is primarily used for searching, extracting, and manipulating text data within files, making it a popular choice for tasks like data transformation, data analysis, and report generation.
+How to run the command?
+- invoke `fastq2fasta_file.sh` and run
+
+`./fastq2fasta_file.sh -i input_directory -o output_directory -t 10`
+
+Where
+- -i represents the input directory containing the fastq files;
+- -o represents the output directory where the fasta files will be stored (The directory is created automatically if it doesn't exist);
+- -t represents the number of threads to use for parallel processing (it depends of your computer capacity).
 
 # Sorting and marking duplicates from .bam files
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
