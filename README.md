@@ -186,6 +186,13 @@ Where,
 -  -b represents the bam files directory;
 -  -o represents the output directory (it will be automatically created if it doesn't exist).
 
+# Creation of mpileup and synchronized file
+Here, we are going to create mpileup file with final bam files as input then subsequently generate a synchronized file for input in Popoolation2.
+Synchronized files basically contain the allele frequencies for every population at every base in the reference genome in a concise format. Note that the synchronized file format contains the allele frequencies after filtering for base quality (see `Kofler et al., 2011`).
+
+For that, we need first to run:
+`samtools mpileup -B -Q 0 -f /path/to/reference/genome/ /path/to/bam/files/s1.bam /path/to/bam/files/s2.bam /path/to/bam/files/sn.bam > /path/to/output/files/s1_s2_sn.mpileup`
+
 
 # Conversion of fractions into decimal numbers
 <a name="section-10"></a>
