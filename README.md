@@ -202,6 +202,9 @@ Where,
 - -o represents the output file where the mpileup file will be stored (it is created automatically if it doesn't exist);
 - -p represents the path to the bam files.
 
+To generate synchronized file, we'll use this command from popoolation2 tutorial https://sourceforge.net/p/popoolation2/wiki/Tutorial/.
+
+`java -ea -Xmx7g -jar <popoolation2-path>/mpileup2sync.jar --input combined.mpileup --output combined_java.sync --fastq-type sanger --min-qual 10 --threads 20`
 
 
 # Conversion of fractions into decimal numbers
