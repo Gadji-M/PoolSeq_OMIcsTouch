@@ -193,6 +193,16 @@ Synchronized files basically contain the allele frequencies for every population
 For that, we need first to run:
 `samtools mpileup -B -Q 0 -f /path/to/reference/genome/ /path/to/bam/files/s1.bam /path/to/bam/files/s2.bam /path/to/bam/files/sn.bam > /path/to/output/files/s1_s2_sn.mpileup`
 
+Or alternatively, you can use the script i wrote `bam2mpileup.sh` to generate the mpileup file.
+
+`./bam2mpileup.sh -r /path/to/reference/genome/reference.fa -o /path/to/output/files -p combined /path/to/bam/files/s1.bam /path/to/bam/files/s2.bam /path/to/bam/files/sn.bam`
+
+Where,
+- -r represents the indexed reference genome;
+- -o represents the output file where the mpileup file will be stored (it is created automatically if it doesn't exist);
+- -p represents the path to the bam files.
+
+
 
 # Conversion of fractions into decimal numbers
 <a name="section-10"></a>
