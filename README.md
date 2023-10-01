@@ -87,6 +87,23 @@ How to run the command ?
  - -o represents the output directory where to store all the forward (R1) and reverse (R2) for each sample;
  - -t represents the number of threads for parallel processing (it depend on your computer capacity).
 
+# Metagemome Assembly 
+Here we are going to generate contigs base on forward (R1) and reverse reads (R2) generated above. This is called assembly which involves reconstructing the complete DNA sequence of an organism's genome or a specific genomic region from short DNA fragments or reads. 
+These reads are typically generated through DNA sequencing technologies. The assembly process aims to piece together these reads in the correct order and orientation to create a contiguous representation of the original DNA sequence. 
+`MEGAHIT` will help us to do the job but we have render that very simple for none bioinformaticians by providing a bash script `assembly_script.sh` that could be run in just one single command line to process hunders of different samples.
+This Bash script automates the assembly of paired-end sequencing data using `Megahit`. It supports both `.fastq` and `.fastq.gz` files. Users will just need to provide input and output directories, and optionally, the number of threads. 
+It searches for paired-end files, creates output directories, and processes each sample separately. For each sample, it checks if the reverse read exists in either format, runs `Megahit` accordingly. The script is a versatile tool for batch processing paired-end sequencing data, ensuring compatibility with compressed and uncompressed formats while handling missing reverse reads.
+
+How to run the script ?
+Invoke `assembly_script.sh` and run:
+
+`./assembly_script.sh -i Path/to/fastq/files/ -o Path/to/the/output/directory/ -t 10`
+
+Where
+- -i represents the input directory containing the fastq files;
+- -o represents the output directory where to stored the assembled contigs in fasta format (note that if it doesn't exist, it will be automatically created);
+- -t represents the number of threads for parallel processing (it depend on your computer capacity).
+
 
 # Microbial Classification using unmapped reads via Kraken2 (MCUUR)
 <a name="section-5"></a>
