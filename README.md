@@ -165,6 +165,10 @@ How to run the command?
  - -l represents the list of taxid of all the bacteria taxa to be extracted.
 
 
+Alternatively, you can use this simple command line to extract sequences of interest.
+
+`grep -A 1 "kraken:taxid|idnumber" your_input.fasta | grep -v "^--$" > extracted_sequences.fasta`
+
 # Sorting and marking duplicates from .bam files
 <a name="section-8"></a>
 
