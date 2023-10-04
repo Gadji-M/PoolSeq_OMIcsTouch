@@ -71,21 +71,6 @@ Where
 - -r refers to the reference genome, note that it must be indexed before running (`bwa index genome.fasta`);
 - -o refers to the sorted bam output file.
 
-## 3. Sorting and marking duplicates from .bam files
-<a name="section-8"></a>
-
-Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
-This session will use the shell script `Sorting_marking_duplicates.sh`.
-
-How to run the command line?
-
-`./Sorting_marking_duplicates.sh -i /path/to/input_dir -o /path/to/output_dir -m metrics.txt -p /path/to/picard.jar`
-
-Where,
-- -i represents the file in which the bam files to process are into;
-- -o represents the file in which the output will be redirected;
-- -m represents the file in which the metric files of each bam file will be save after marking duplicates;
-- -p represents the path to the tool you will use to process the sorting and deduplication (in this case, picard.jar from the Picard toold).
 
 ### Computing mapping and coverage statistics
 <a name="section-9"></a>
@@ -104,6 +89,25 @@ Where,
 How to run the command line for coverage statistics ?
 
 `./Coverage_statistics.sh -b /path/to/bam_directory -o /path/to/output_directory`
+
+### Note: It's important to do QC check pre and post Mapping your Reads to the reference.
+
+## 3. Sorting and marking duplicates from .bam files
+<a name="section-8"></a>
+
+Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
+This session will use the shell script `Sorting_marking_duplicates.sh`.
+
+How to run the command line?
+
+`./Sorting_marking_duplicates.sh -i /path/to/input_dir -o /path/to/output_dir -m metrics.txt -p /path/to/picard.jar`
+
+Where,
+- -i represents the file in which the bam files to process are into;
+- -o represents the file in which the output will be redirected;
+- -m represents the file in which the metric files of each bam file will be save after marking duplicates;
+- -p represents the path to the tool you will use to process the sorting and deduplication (in this case, picard.jar from the Picard toold).
+
 
 Where,
 -  -b represents the bam files directory;
@@ -128,7 +132,6 @@ Where,
 To generate synchronized file, we'll use this command from popoolation2 tutorial https://sourceforge.net/p/popoolation2/wiki/Tutorial/.
 
 `java -ea -Xmx7g -jar <popoolation2-path>/mpileup2sync.jar --input combined.mpileup --output combined_java.sync --fastq-type sanger --min-qual 10 --threads 20`
-
 
 
 
