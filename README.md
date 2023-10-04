@@ -45,7 +45,8 @@ Where,
 
 After the quality control done you will have in the multiqc file a html document summarizing the QC for all your samples (see example below).
 
-![Alt Text](image.png)
+![Alt Text](fastqc-status-check-heatmap-2.png)
+Fig 1. Quality control of Poolseq FASTQ data
 
   
 ## 2. Alignment
