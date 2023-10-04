@@ -46,7 +46,7 @@ Where,
 After the quality control done you will have in the multiqc file a html document summarizing the QC for all your samples (see example below).
 
 ![Alt Text](fastqc-status-check-heatmap-2.png)
-Fig 1. Quality control of Poolseq FASTQ data
+Fig 1. Quality control of Poolseq FASTQ data. Green, yellow, and red boxes represent pass, warn, and fail qualities, respectively.
 
   
 ## 2. Alignment
