@@ -1,3 +1,5 @@
+![Alt Text](fastqc-status-check-heatmap-2.png)
+
 ##### Hi there 👋 😁
 
 I'm a PhD student in Cameroon.
