@@ -1,4 +1,4 @@
-![Alt Text](fastqc-status-check-heatmap-2.png)
+![Alt Text](GitHub_log.png)
 
 ##### Hi there 👋 😁
 
