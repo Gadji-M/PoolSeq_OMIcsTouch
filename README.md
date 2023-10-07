@@ -1,6 +1,6 @@
 ![Alt Text](GitHub_log.png)
 
-Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.wondji@crid-cam.net
+Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.wondji@crid-cam.net *
 ##### Hi there 👋 😁
 
 I'm a PhD student in Cameroon.
