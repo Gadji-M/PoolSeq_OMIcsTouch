@@ -181,9 +181,9 @@ Where,
 The maximum coverage; All populations are required to have coverages, lower or equal than the maximum coverage;
 The maximum coverage may be provided as one of the following:
 
-         `500 a maximum coverage of 500 will be used for all populations`
-         `300,400,500 a maximum coverage of 300 will be used for the first population, a maximum coverage of 400 for the second population and so on`
-         `2% the 2% highest coverages will be ignored, this value is independently estimated for every population`
+         500 a maximum coverage of 500 will be used for all populations
+         300,400,500 a maximum coverage of 300 will be used for the first population, a maximum coverage of 400 for the second population and so on
+         5% the 5% highest coverages will be ignored, this value is independently estimated for every population
 
 - -w represents a comma-separated list of window sizes, (ensure that the sizes are correctly formatted and separated by commas, eg. "500000,250000,100000");
 
