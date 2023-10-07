@@ -1,5 +1,6 @@
 ![Alt Text](GitHub_log.png)
 
+Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.wondji@crid-cam.net
 ##### Hi there 👋 😁
 
 I'm a PhD student in Cameroon.
@@ -9,6 +10,7 @@ Shell and R scripts below described the pipeline used for the analyses and visua
 
 ## Table of Contents
 
+#### [Bioinformatics Tools](#section-1)
 ## I. [Poolseq Genome-wide Association Study (Poolseq_GWAS) analysis pipeline](#section-1)
 1. #### [Quality Control combining fastq and multiqc](#section-1)
 2. #### [Alignment and statistics ](#section-2)
@@ -26,6 +28,31 @@ Shell and R scripts below described the pipeline used for the analyses and visua
 5. #### [Extraction of candidate bacteria taxa](#section-5)
 6. #### [Conversion of fractions into decimal numbers](#section-8)
 
+## Bioinformatics Tools
+<a name="section-1"></a>
+Below are the tools and versions used during the MultiOMICs analyses on a server.
+
+- FastQC
+- MultiQC
+- BWA 0.7.17-r1188
+- bowtie2
+- Samtools 1.13
+- Bedtools v2.30.0
+- PoPoolation 2 v1201
+- poolfstat
+- Picard tool
+- grenedalf
+- freebayes v1.3.6
+- awk 5.1.0
+- SnpEff 5.1d
+- WindowScanR
+- R 4.2.3
+- Kraken2 database
+- Chocophlan, metaphlan and HumanN-3.6 databases
+- Uniref database
+- MEGAHIT v1.2.9
+- TransDecoder-TransDecoder-v5.7.1
+- ncbi-blast-2.14.1+
 
 # I. [Poolseq Genome-wide Association Study (Poolseq_GWAS) analysis pipeline](#section-1)
 
