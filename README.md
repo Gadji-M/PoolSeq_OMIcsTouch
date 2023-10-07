@@ -5,7 +5,7 @@ Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.
 ##### Hi there 👋 😁
 
 I'm a PhD student in Cameroon.
-I'm currently working on evolutionary genomic to identify signatures of positive selection associated to resistance escalation in major malaria vectors.
+I'm currently working on multiOMICs data to identify signatures of positive selection associated to resistance escalation in major malaria vectors.
 Shell, python and R scripts below described the pipeline used for the analyses and visualization of the Poolseq GWAS data.
 
 ## [Features](#section-1)
