@@ -131,7 +131,7 @@ Where,
 - -o represents the output file where the mpileup file will be stored (it is created automatically if it doesn't exist);
 - -p represents the path to the bam files.
 
-To generate synchronized file, we'll use this command from popoolation2 tutorial https://sourceforge.net/p/popoolation2/wiki/Tutorial/.
+To generate synchronized file, we'll use this command from popoolation2 tutorial [popoolation2](https://sourceforge.net/p/popoolation2/wiki/Tutorial/).
 
 `java -ea -Xmx7g -jar <popoolation2-path>/mpileup2sync.jar --input combined.mpileup --output combined_java.sync --fastq-type sanger --min-qual 10 --threads 20`
 
@@ -159,6 +159,50 @@ Where
 
 ## 5. Population Genomic Analysis
 <a name="section-10"></a>
+
+The aim of this part is to detect regions of genomic/genetic differentiation across the genome of several populations (in our case Anopheles populations). For that, we are going to estimate pairwise FST genetic differentiation values using a custom script (`Fst_Sliding_windows.sh`) we wrote to facilitate windows analyses and base on [popoolation2](https://sourceforge.net/p/popoolation2/wiki/Tutorial/). It computes pairwise FST values across specified window and step sizes, with results saved according to individual window in unique output file. Informative progress messages ensure user guidance. This tool automates FST calculations, making it accessible and efficient for population genetics research, providing flexibility in parameter configurations and simplifying complex genetic analyses.
+
+How to run the command ?
+Invoke, Fst_sliding_windows.sh and run:
+
+`./Fst_sliding_windows.sh -i path/to/sync/file.sync -o path/to/output -c 2 -C 10 -f "5%" -w "500,1000,2000" -s "250,500,1000" -p 40 -P "/mnt/46TB/Ghost/Space_Gadji/PoolSeq_2022/software/popoolation2_1201/" -F 0.2`
+
+Where,
+
+- -i represents the input sync file, (Please double-check that the path to the sync file is correct, and the file exists at that location);
+
+- -o represents the output directory where the results will be stored (If it doesn't exist, it will be automatically created);
+
+- -c represents the minimum count of alleles required to consider a site in the analysis (It should be a valid value);
+
+- -C represents the minimum coverage required for a site to be included in the analysis, (Make sure it's a valid value and appropriate for your data);
+
+- -f represents the maximum coverage as a percentage or a value of the total coverage;
+The maximum coverage; All populations are required to have coverages, lower or equal than the maximum coverage;
+The maximum coverage may be provided as one of the following:
+
+         `500 a maximum coverage of 500 will be used for all populations`
+         `300,400,500 a maximum coverage of 300 will be used for the first population, a maximum coverage of 400 for the second population and so on`
+         `2% the 2% highest coverages will be ignored, this value is independently estimated for every population`
+
+- -w represents a comma-separated list of window sizes, (ensure that the sizes are correctly formatted and separated by commas, eg. "500000,250000,100000");
+
+- -s represents a comma-separated list of step sizes, (double-check the formatting and values, eg. "250000,125000,50000");
+
+- -p  This sets the pool size of each sample paramete (the number of pools has to fit with the number of populations provided in the file);
+-p 500 means that all populations have a pool size of 500
+-p 500:300:600 means that the first population has a pool size of 500, the seccond of 300 and the third 600;
+
+- -P represents the path to the Popoolation2 software;
+
+- -F represents the min_covered_fraction value, (the minimum fraction of a window being between min-coverage and
+        max-coverage in ALL populations);
+
+Alternatively, you can run the Fst calculation for each locus and use [WindowScanR](https://github.com/tavareshugo/WindowScanR) in R platform for Windows analyses.
+When the Job is done, please run this command line to covert and format the fst files into readeable file by R for plotting.
+
+`perl path/to/popoolation2_1201/export/pwc2igv.pl --input path/to/fst/files --output path/to/output/`
+
 
 ## 6. Detection of evidence of Selective Sweeps
 <a name="section-11"></a>
