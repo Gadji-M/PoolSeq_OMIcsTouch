@@ -237,6 +237,53 @@ When the Job is done, please run this command line to covert and format the fst 
 ## 6. Detection of evidence of Selective Sweeps
 <a name="section-11"></a>
 
+The aim of this section is to learn how to detect evidence of positive selection among different populations. For that, we are going to estimate Tajima's D parameter which could tell us about the state of selection in populations then estimate as well the genetic diversity by the mean of theta pi and theta watterson. To facilitate the calculations, we wrote an automated script based on [grenedalf](https://github.com/lczech/grenedalf) that iterates through each BAM file, creates output directories, and runs grendalf with specified window sizes and strides. It organizes results in separate directories, making analysis efficient and organized. Users execute the script by providing necessary options, enabling streamlined genomic data analysis. The beauty of this script is that it could consecutively process different window sizes and strides, then store each output in his own file.
+How to run the job?
+invoke `diversity_measure.sh` and run:
+
+`./scripts/diversity_measure.sh -p path/to/grenedalf -d path/to/bam/files/directory -w "25000 50000 250000 500000" -s "12500 25000 125000 250000" -o path/to/output/directory -M 5 -S 5 -Q intersection -q 2 -L 4 -C 10 -c 1000 -F all -f comma -m nan -z popoolation-corrected-tajimas-d -n 80 -t path/to/log/diversity.log -T sliding`
+
+Where,
+
+- -p represents the path to the grendalf executable (make sure you have install grenedalf);
+
+-d represents the directory containing input BAM files for genomic analysis.
+
+-w Defines window sizes (in base pairs) for analysis. For example, four window sizes could be provided: 25,000; 50,000; 250,000; and 500,000;
+
+-s defines window sliding strides (in base pairs) corresponding to the window sizes;
+
+-o represents the directory where the output of the analysis will be stored;
+
+-M represents the minimum mapping quality threshold for reads in the BAM files to be included in the analysis;
+
+-S represents the minimum base quality threshold for reads to be included;
+
+-Q defines the method for selecting loci. could be "union" or "intersection";
+
+-q represents the minimum count of samples required for a locus to be included;
+
+-L represents the maximum count of samples allowed for a locus to be included;
+
+-C represents the minimum coverage depth required for a locus to be included;
+
+-c represents the maximum coverage depth allowed for a locus to be included;
+
+-F Defines the type of diversity measure to compute. It could be one of these measures {theta-pi,theta-watterson,tajimas-d}=all or "all," which likely means computing all available diversity measures;
+
+-f  Specifies the separator character used in output files, it could be one of these {comma,tab,space,semicolon}, its used comma by default; 
+
+-m Sets the value used for missing data entries in the output, (e.g., resulting from positions with no counts, or windows with no variants). This is useful to match formatting expectations of downstream software;
+
+-z Specifies an option or value for the analysis, related to Tajima's D calculations (popoolation-corrected-tajimas-d);
+
+-n Specifies the number of threads or CPU cores to be used for parallel processing;
+
+-t specifies the path for the log file where information about the analysis progress will be recorded.
+
+-T specifies the type of window to use for analysis, it could be on of these (sliding,queue,single,regions,chromosomes,genome);
+
+
 ## 7. Variants calling and annotation
 <a name="section-12"></a>
 
