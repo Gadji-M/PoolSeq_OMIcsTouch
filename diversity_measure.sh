@@ -16,13 +16,13 @@ filter_sample_max_coverage=""
 measure=""
 separator_char=""
 na_entry=""
-popoolation-corrected-tajimas-d=""
+popoolation_corrected_tajimas_d=""
 threads=""
-log_file=""
+log_dir=""
 window_type=""
 
 # Parse command-line options
-while getopts "p:d:w:s:o:M:S:Q:q:L:C:c:F:f:m:z:n:t:v:l:T:" opt; do
+while getopts "p:d:w:s:o:M:S:Q:q:L:C:c:F:f:m:z:n:t:l:T:" opt; do
   case "$opt" in
     p) grenedalf_path="$OPTARG";;
     d) bam_dir="$OPTARG";;
@@ -39,11 +39,11 @@ while getopts "p:d:w:s:o:M:S:Q:q:L:C:c:F:f:m:z:n:t:v:l:T:" opt; do
     F) measure="$OPTARG";;
     f) separator_char="$OPTARG";;
     m) na_entry="$OPTARG";;
-    z) popoolation-corrected-tajimas-d="$OPTARG";;
+    z) popoolation_corrected_tajimas_d="$OPTARG";;
     n) threads="$OPTARG";;
-    t) log_file="$OPTARG";;
+    t) log_dir="$OPTARG";;
     T) window_type="$OPTARG";;
-    \?) echo "Usage: $0 -p <grenedalf_path> -d <bam_directory> -w <window_sizes> -s <window_strides> -o <output_base_dir> -M <sam_min_map_qual> -S <sam_min_base_qual> -Q <multi_file_locus_set> -q <filter_sample_min_count> -L <filter_sample_max_count> -C <filter_sample_min_coverage> -c <filter_sample_max_coverage> -F <measure> -f <separator_char> -m <na_entry> ->
+    \?) echo "Usage: $0 -p <grenedalf_path> -d <bam_directory> -w <window_sizes> -s <window_strides> -o <output_base_dir> -M <sam_min_map_qual> -S <sam_min_base_qual> -Q <multi_file_locus_set> -q <filter_sample_min_count> -L <filter_sample_max_count> -C <filter_sample_min_coverage> -c <filter_sample_max_coverage> -F <measure> -f <separator_char> -m <na_entry> -z <popoolation_corrected_tajimas_d> -n <threads> -t <log_dir> -T <window_type>"
         exit 1;;
   esac
 done
@@ -78,8 +78,11 @@ for bam_file in "$bam_dir"/*.bam; do
         # Construct the full path to the 'grendalf' binary
         grendalf_cmd="$grenedalf_path/grenedalf"
 
+        # Create a unique log file for each run
+        log_file="$log_dir/${bam_name_no_extension}_window_${window_size}_stride_${window_stride}.log"
+
         # Run the grendalf diversity command with specified options and path
-        cmd="$grendalf_cmd diversity --sam-path $bam_file --window-sliding-width $window_size --window-sliding-stride $window_stride --window-type $window_type --pool-sizes 50 --sam-min-map-qual $sam_min_map_qual --sam-min-base-qual $sam_min_base_qual --multi-file-locus-set $multi_file_locus_set --filter-sample-min-count $filter_sample_min_count --filter-sample>
+        cmd="$grendalf_cmd diversity --sam-path $bam_file --window-sliding-width $window_size --window-sliding-stride $window_stride --window-type $window_type --allow-file-overwriting --pool-sizes 40 --sam-min-map-qual $sam_min_map_qual --sam-min-base-qual $sam_min_base_qual --multi-file-locus-set $multi_file_locus_set --filter-sample-min-count $filter_sample_min_count --filter-sample-max-count $filter_sample_max_count --filter-sample-min-coverage $filter_sample_min_coverage --filter-sample-max-coverage $filter_sample_max_coverage --measure $measure --separator-char $separator_char --na-entry $na_entry --popoolation-corrected-tajimas-d $popoolation_corrected_tajimas_d --threads $threads --log-file $log_file --out-dir $window_dir"
 
         # Execute the command
         echo "Running command: $cmd"
@@ -88,6 +91,3 @@ for bam_file in "$bam_dir"/*.bam; do
     done
   fi
 done
-
-#AUTHOR#
-####GADJI_M###
