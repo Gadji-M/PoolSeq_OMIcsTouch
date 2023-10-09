@@ -255,41 +255,41 @@ Where,
 
 - -p represents the path to the grendalf executable (make sure you have install grenedalf);
 
--d represents the directory containing input BAM files for genomic analysis.
+- -d represents the directory containing input BAM files for genomic analysis.
 
--w Defines window sizes (in base pairs) for analysis. For example, four window sizes could be provided: 25,000; 50,000; 250,000; and 500,000;
+- -w Defines window sizes (in base pairs) for analysis. For example, four window sizes could be provided: 25,000; 50,000; 250,000; and 500,000;
 
--s defines window sliding strides (in base pairs) corresponding to the window sizes;
+- -s defines window sliding strides (in base pairs) corresponding to the window sizes;
 
--o represents the directory where the output of the analysis will be stored;
+- -o represents the directory where the output of the analysis will be stored;
 
--M represents the minimum mapping quality threshold for reads in the BAM files to be included in the analysis;
+- -M represents the minimum mapping quality threshold for reads in the BAM files to be included in the analysis;
 
--S represents the minimum base quality threshold for reads to be included;
+- -S represents the minimum base quality threshold for reads to be included;
 
--Q defines the method for selecting loci. could be "union" or "intersection";
+- -Q defines the method for selecting loci. could be "union" or "intersection";
 
--q represents the minimum count of samples required for a locus to be included;
+- -q represents the minimum count of samples required for a locus to be included;
 
--L represents the maximum count of samples allowed for a locus to be included;
+- -L represents the maximum count of samples allowed for a locus to be included;
 
--C represents the minimum coverage depth required for a locus to be included;
+- -C represents the minimum coverage depth required for a locus to be included;
 
--c represents the maximum coverage depth allowed for a locus to be included;
+- -c represents the maximum coverage depth allowed for a locus to be included;
 
--F Defines the type of diversity measure to compute. It could be one of these measures {theta-pi,theta-watterson,tajimas-d}=all or "all," which likely means computing all available diversity measures;
+- -F Defines the type of diversity measure to compute. It could be one of these measures {theta-pi,theta-watterson,tajimas-d}=all or "all," which likely means computing all available diversity measures;
 
--f  Specifies the separator character used in output files, it could be one of these {comma,tab,space,semicolon}, its used comma by default; 
+- -f  Specifies the separator character used in output files, it could be one of these {comma,tab,space,semicolon}, its used comma by default; 
 
--m Sets the value used for missing data entries in the output, (e.g., resulting from positions with no counts, or windows with no variants). This is useful to match formatting expectations of downstream software;
+- -m Sets the value used for missing data entries in the output, (e.g., resulting from positions with no counts, or windows with no variants). This is useful to match formatting expectations of downstream software;
 
--z Specifies an option or value for the analysis, related to Tajima's D calculations (popoolation-corrected-tajimas-d);
+- -z Specifies an option or value for the analysis, related to Tajima's D calculations (popoolation-corrected-tajimas-d);
 
--n Specifies the number of threads or CPU cores to be used for parallel processing;
+- -n Specifies the number of threads or CPU cores to be used for parallel processing;
 
--t specifies the path for the log file where information about the analysis progress will be recorded.
+- -t specifies the path for the log file where information about the analysis progress will be recorded.
 
--T specifies the type of window to use for analysis, it could be on of these (sliding,queue,single,regions,chromosomes,genome);
+- -T specifies the type of window to use for analysis, it could be on of these (sliding,queue,single,regions,chromosomes,genome);
 
 
 ## 7. Variants calling and annotation
