@@ -13,23 +13,23 @@ OMIcsTouch is a computational pipeline base on shell, python and R script to ana
 
 ## Table of Contents
 
-#### [Bioinformatics Tools](#section-1)
-## I. [Poolseq Genome-wide Association Study (Poolseq_GWAS) analysis pipeline](#section-1)
-1. #### [Quality Control combining fastq and multiqc](#section-1)
-2. #### [Alignment and statistics ](#section-2)
-3. #### [Sorting and marking duplicates from .bam files](#section-3)
-4. #### [Estimation of allele frequency](#section-3)
-5. #### [Population Genomic Analysis](#section-4)
-6. #### [Detection of evidence of Selective Sweeps](#section-5)
-7. #### [Variants calling and annotation](#section-6)
+#### [Bioinformatics Tools](#section-2)
+## I. [Poolseq Genome-wide Association Study (Poolseq_GWAS) analysis pipeline](#section-3)
+1. #### [Quality Control combining fastq and multiqc](#section-4)
+2. #### [Alignment and statistics ](#section-5)
+3. #### [Sorting and marking duplicates from .bam files](#section-6)
+4. #### [Estimation of allele frequency](#section-7)
+5. #### [Population Genomic Analysis](#section-8)
+6. #### [Detection of evidence of Selective Sweeps](#section-9)
+7. #### [Variants calling and annotation](#section-10)
 
-## II. [Metagenomic analysis pipeline](#section-1)
-1. #### [Extraction of unmapped reads for Metagenomic analyses (EUMA)](#section-1)
-2. #### [Generation of forward and reverse reads (R1 and R2) from a paired fastq file](#section-2)
-3. #### [Microbial Classification using unmapped reads via Kraken2 (MCUUR)](#section-3)
-4. #### [Converting fastq to fasta files](#section-4)
-5. #### [Extraction of candidate bacteria taxa](#section-5)
-6. #### [Conversion of fractions into decimal numbers](#section-8)
+## II. [Metagenomic analysis pipeline](#section-11)
+1. #### [Extraction of unmapped reads for Metagenomic analyses (EUMA)](#section-12)
+2. #### [Generation of forward and reverse reads (R1 and R2) from a paired fastq file](#section-13)
+3. #### [Microbial Classification using unmapped reads via Kraken2 (MCUUR)](#section-14)
+4. #### [Converting fastq to fasta files](#section-15)
+5. #### [Extraction of candidate bacteria taxa](#section-16)
+6. #### [Conversion of fractions into decimal numbers](#section-17)
 
 ## Bioinformatics Tools
 <a name="section-1"></a>
