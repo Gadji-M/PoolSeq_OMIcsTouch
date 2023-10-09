@@ -13,26 +13,31 @@ OMIcsTouch is a computational pipeline base on shell, python and R script to ana
 
 ## Table of Contents
 
-#### [Bioinformatics Tools](#section-2)
+### [Bioinformatics Tools](#section-2)
 ## I. [Poolseq Genome-wide Association Study (Poolseq_GWAS) analysis pipeline](#section-3)
 1. #### [Quality Control combining fastq and multiqc](#section-4)
 2. #### [Alignment and statistics ](#section-5)
 3. #### [Sorting and marking duplicates from .bam files](#section-6)
 4. #### [Estimation of allele frequency](#section-7)
-5. #### [Population Genomic Analysis](#section-8)
-6. #### [Detection of evidence of Selective Sweeps](#section-9)
-7. #### [Variants calling and annotation](#section-10)
+5. #### [Conversion of fractions into decimal numbers](#section-8)
+6. #### [Population Genomic Analysis](#section-9)
+7. #### [Detection of evidence of Selective Sweeps](#section-10)
+8. #### [Variants calling and annotation](#section-11)
 
-## II. [Metagenomic analysis pipeline](#section-11)
-1. #### [Extraction of unmapped reads for Metagenomic analyses (EUMA)](#section-12)
-2. #### [Generation of forward and reverse reads (R1 and R2) from a paired fastq file](#section-13)
-3. #### [Microbial Classification using unmapped reads via Kraken2 (MCUUR)](#section-14)
-4. #### [Converting fastq to fasta files](#section-15)
-5. #### [Extraction of candidate bacteria taxa](#section-16)
-6. #### [Conversion of fractions into decimal numbers](#section-17)
+## II. [Metagenomic analysis pipeline](#section-12)
+1. #### [Extraction of unmapped reads for Metagenomic analyses (EUMA)](#section-13)
+2. #### [Generation of forward and reverse reads (R1 and R2) from a paired fastq file](#section-14)
+3. #### [Metagemome Assembly and ORF prediction](#section-15)
+4. #### [Microbial Classification using unmapped reads via Kraken2 (MCUUR)](#section-16)
+5. #### [Converting fastq to fasta files](#section-17)
+6. #### [Extraction of candidate bacteria taxa](#section-18)
+7. #### [Microbial diversity analysis](#section-19)
+8. #### [Microbial differential abundance analysis](#section-20)
+9. #### [Microbial functional profiling](#section-21)
+
 
 ## Bioinformatics Tools
-<a name="section-1"></a>
+<a name="section-2"></a>
 Below are the tools and versions used during the MultiOMICs analyses on a server.
 
 - FastQC
@@ -56,11 +61,15 @@ Below are the tools and versions used during the MultiOMICs analyses on a server
 - MEGAHIT v1.2.9
 - TransDecoder-TransDecoder-v5.7.1
 - ncbi-blast-2.14.1+
+- DEseq2, EdgeR
+- ANCOMBC
+- Phyloseq
 
-# I. [Poolseq Genome-wide Association Study (Poolseq_GWAS) analysis pipeline](#section-1)
+# I. [Poolseq Genome-wide Association Study (Poolseq_GWAS) analysis pipeline](#section-3)
+<a name="section-3"></a>
 
 ## 1. Quality control script using fastqc and multiqc
-<a name="section-1"></a>
+<a name="section-4"></a>
 
 I am going to show here how to use the `Fastq_Quality_check.sh` script i wrote to sequentialy perform quality control of your NGS data using `fastqc` then pipe the sdout from `fastqc` into `multiqc` to aggregate the results and visualize. This command helps you to save more time and speed your analyses.
 Before to start please ensure that you make the script executable using the following command `chmod +x Fastq_Quality_check.sh`.
@@ -81,8 +90,8 @@ After the quality control done you will have in the multiqc file a html document
 Fig 1. Quality control of Poolseq FASTQ data. Green, yellow, and red boxes represent pass, warn, and fail qualities, respectively.
 
   
-## 2. Alignment
-<a name="section-2"></a>
+## 2. Alignment and statistics
+<a name="section-5"></a>
 
 The `Alignment.sh` script was written to help align samples that have 2 or more read pairs (two or more reads for forward and for reverse reads post pair-end WGS). The alignment uses `bwa mem` algorith to perform alignment and convert the sam output into bam output using samtools.
 In details,
@@ -105,7 +114,6 @@ Where
 
 
 ### Computing mapping and coverage statistics
-<a name="section-9"></a>
 
 Here, i will show you how to quickly compute mapping and coverage statistics using picard tools and samtools. This part will use `Mapping_statistics.sh` and `Coverage_statistics.sh` shell scripts.
 How to run the command line for mapping statistics?
@@ -125,7 +133,7 @@ How to run the command line for coverage statistics ?
 ### Note: It's important to do QC check pre and post Mapping your Reads to the reference.
 
 ## 3. Sorting and marking duplicates from .bam files
-<a name="section-8"></a>
+<a name="section-6"></a>
 
 Here, i will show you how to sort according to coordinates, mark and remove duplicates using picard tools with bam files as input.
 This session will use the shell script `Sorting_marking_duplicates.sh`.
@@ -168,11 +176,11 @@ To generate synchronized file, we'll use this command from popoolation2 tutorial
 
 
 ## 4. Estimation of allele frequency
-<a name="section-9"></a>
+<a name="section-7"></a>
 
 
 ### Conversion of fractions into decimal numbers
-<a name="section-10"></a>
+<a name="section-8"></a>
 
 I wrote a shell script that can allow anyone to convert fractions into decimal numbers for downstream analyses. In my case, i was mainly interested on Major Allele (MAA) and Minor Allele (MIA) frequencies from the PoolSeq GWAS generated using Popoolation2.
 
@@ -188,7 +196,7 @@ Where
 - -c defined the columns to process separated by space (eg. "5 8 10" for conversion of column 5, column 8 and column 10).
 
 ## 5. Population Genomic Analysis
-<a name="section-10"></a>
+<a name="section-9"></a>
 
 The aim of this part is to detect regions of genomic/genetic differentiation across the genome of several populations (in our case Anopheles populations). For that, we are going to estimate pairwise FST genetic differentiation values using a custom script (`Fst_Sliding_windows.sh`) we wrote to facilitate windows analyses and base on [popoolation2](https://sourceforge.net/p/popoolation2/wiki/Tutorial/). It computes pairwise FST values across specified window and step sizes, with results saved according to individual window in unique output file. Informative progress messages ensure user guidance. This tool automates FST calculations, making it accessible and efficient for population genetics research, providing flexibility in parameter configurations and simplifying complex genetic analyses.
 
@@ -235,7 +243,7 @@ When the Job is done, please run this command line to covert and format the fst 
 
 
 ## 6. Detection of evidence of Selective Sweeps
-<a name="section-11"></a>
+<a name="section-10"></a>
 
 The aim of this section is to learn how to detect evidence of positive selection among different populations. For that, we are going to estimate Tajima's D parameter which could tell us about the state of selection in populations then estimate as well the genetic diversity by the mean of theta pi and theta watterson. To facilitate the calculations, we wrote an automated script based on [grenedalf](https://github.com/lczech/grenedalf) that iterates through each BAM file, creates output directories, and runs grendalf with specified window sizes and strides. It organizes results in separate directories, making analysis efficient and organized. Users execute the script by providing necessary options, enabling streamlined genomic data analysis. The beauty of this script is that it could consecutively process different window sizes and strides, then store each output in his own file.
 How to run the job?
@@ -285,13 +293,14 @@ Where,
 
 
 ## 7. Variants calling and annotation
-<a name="section-12"></a>
+<a name="section-11"></a>
 
 
 # II. [Metagenomic analysis pipeline](#section-1)
+<a name="section-12"></a>
 
 ## 1. Extraction of unmapped reads for Metagenomic analyses (EUMA)
-<a name="section-3"></a>
+<a name="section-13"></a>
 
 I am going to show you how to perform metagenomic analyses using unmapped reads from WGS with the aim to identify microbial signature that could be potentially associated to insecticide super-resistance in malaria vectors.
 During the WGS of malaria vectors, beside the entire genome that will be sequenced, other organisms genomes present in the sample are also sequenced. This involved bacteria, parasites, Eukaryotes, Viruses, funga and even unknown organisms refer as `dark reads` that will need further investigation to discover new species using De Novo assembly for example.
@@ -307,7 +316,7 @@ Where
 - -t represents the number of threads for parallel processing (it depend on your computer capacity).
 
 ## 2. Generation of forward and reverse reads (R1 and R2) from a paired fastq file
-<a name="section-4"></a>
+<a name="section-14"></a>
 
 Here we are going to generate the forward and the reverse reads from a single paired fastq file using `Seqtk` which is a command-line tool for processing sequences in various file formats, such as FASTA and FASTQ. It is often used in bioinformatics and genomics research for tasks like subsetting, converting between formats, and generating random sequences. Seqtk is a versatile and efficient tool that can be a valuable addition to your bioinformatics toolkit.
 For that, we are going to use the `Separate_fastq_reads.sh` shell script with fastq files as input.
@@ -321,7 +330,8 @@ How to run the command ?
  - -o represents the output directory where to store all the forward (R1) and reverse (R2) for each sample;
  - -t represents the number of threads for parallel processing (it depend on your computer capacity).
 
-## 3. Metagemome Assembly 
+## 3. Metagemome Assembly
+<a name="section-15"></a>
 Here we are going to generate contigs base on forward (R1) and reverse reads (R2) generated above. This is called assembly which involves reconstructing the complete DNA sequence of an organism's genome or a specific genomic region from short DNA fragments or reads. 
 These reads are typically generated through DNA sequencing technologies. The assembly process aims to piece together these reads in the correct order and orientation to create a contiguous representation of the original DNA sequence. 
 `MEGAHIT` will help us to do the job but we have render that very simple for none bioinformaticians by providing a bash script `assembly_script.sh` that could be run in just one single command line to process hunders of different samples.
@@ -340,7 +350,7 @@ Where
 
 
 ## 4. Microbial Classification using unmapped reads via Kraken2 (MCUUR)
-<a name="section-5"></a>
+<a name="section-16"></a>
 
 Here, i am going to show you how to assess the microbial contribution in our sample.
 To remind, what i did was to remove host genome (Anopheles funestus) by mapping to the AfunF3 genome avalaible on vectorbase.org then now i'm going to use the non-host reads to characterize microbial composition.
@@ -365,7 +375,7 @@ Where
 - -t represents the number of threads to use for parallel processing (it depends of your computer capacity).
 
 ## 5. Converting fastq to fasta files
-<a name="section-6"></a>
+<a name="section-17"></a>
 
 Here i'll show how to convert fastq files into fasta files for downstream analyses like phylogenetic analysis. 
 We are going to use the `fastq2fasta_file.sh` script here. The conversion is done via `awk` which is a versatile and powerful text-processing tool commonly used in Unix-like operating systems. 
@@ -382,7 +392,7 @@ Where
 
 
 ## 6. Extraction of candidate bacteria taxa
-<a name="section-7"></a>
+<a name="section-18"></a>
 
 Here, i am going to show how to extract bacteria sequences of interest using a python3 script i wrote based on the taxid generated post-kraken2 classification.
 What we want to do is to extract all the most abundant bacteria sequence reads in our various samples. Remember when we did microbial classification using the `Kraken2_classification.sh` script, we generated an output file containing classified sequences.
@@ -402,4 +412,13 @@ How to run the command?
 Alternatively, you can use this simple command line to extract sequences of interest.
 
 `grep -A 1 "kraken:taxid|idnumber" your_input.fasta | grep -v "^--$" > extracted_sequences.fasta`
+
+## 7. Microbial diversity analysis
+<a name="section-19"></a>
+
+## 8. Microbial differential abundance analysis
+<a name="section-20"></a>
+
+## 7. Microbial functional profiling
+<a name="section-21"></a>
 
