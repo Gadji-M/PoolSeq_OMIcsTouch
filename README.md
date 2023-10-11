@@ -9,7 +9,7 @@ I'm currently working on multiOMICs data to identify signatures of positive sele
 Shell, python and R scripts below described the pipeline used for the analyses and visualization of the Poolseq GWAS data.
 
 ## [Features](#section-1)
-OMIcsTouch is a computational pipeline base on shell, python and R script to analyse Illumina Whole Genome data of any organism and mainly Anopheles spp. It performs Poolseq and Metagenomic analyses including pairwise genetic differentiation among population, GWAS, differential Meta-taxomomy, abundance analysis, diversity analyses, selective sweeps analyses, variant calling and annotation. The workflow can perform these analyses on illumina paired-end PoolSeq data. This pipeline combines several Bioinformatics tools available in various repository. Because, it has automated scripts, it allows non Bioinformaticians to easely analyse thier Omics data without needing to do a lot of trainings on Bioinformatics and it safes a lot of time as well.
+OMIcsTouch is a computational pipeline base on shell, python and R script to analyse Illumina Whole Genome data of any organism and mainly Anopheles spp. It performs Poolseq and Metagenomic analyses including pairwise genetic differentiation among population, GWAS  Meta-taxomomy, differential abundance analysis, diversity analyses, selective sweeps analyses, variant calling and annotation. The workflow can perform these analyses on illumina paired-end PoolSeq data. This pipeline combines several Bioinformatics tools available in various repository. Because, it has automated scripts, it allows non Bioinformaticians to easely analyse thier Omics data without needing to do a lot of trainings on Bioinformatics and it safes a lot of time as well.
 
 ## Table of Contents
 
