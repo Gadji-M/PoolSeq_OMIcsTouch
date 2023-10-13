@@ -1,4 +1,4 @@
-![Alt Text](GitHub_log.png)
+![Alt Text](Omics_Touch_logo.png)
 
 Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.wondji@crid-cam.net *
 
