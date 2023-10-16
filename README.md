@@ -158,9 +158,9 @@ Here, we are going to create mpileup file with final bam files as input then sub
 Synchronized files basically contain the allele frequencies for every population at every base in the reference genome in a concise format. Note that the synchronized file format contains the allele frequencies after filtering for base quality (see `Kofler et al., 2011`).
 
 For that, we need first to run:
-`samtools mpileup -B -Q 0 -f /path/to/reference/genome/ /path/to/bam/files/s1.bam /path/to/bam/files/s2.bam /path/to/bam/files/sn.bam > /path/to/output/files/s1_s2_sn.mpileup`
+`samtools mpileup -B -Q 10 -f /path/to/reference/genome/ /path/to/bam/files/s1.bam /path/to/bam/files/s2.bam /path/to/bam/files/sn.bam > /path/to/output/files/s1_s2_sn.mpileup`
 
-Or alternatively, you can use the script i wrote `bam2mpileup.sh` to generate the mpileup file.
+Or alternatively, you can use the script i wrote `bam2mpileup.sh` to generate the mpileup file following.
 
 `./bam2mpileup.sh -r /path/to/reference/genome/reference.fa -o /path/to/output/files -p combined /path/to/bam/files/s1.bam /path/to/bam/files/s2.bam /path/to/bam/files/sn.bam`
 
@@ -172,7 +172,6 @@ Where,
 To generate synchronized file, we'll use this command from popoolation2 tutorial [popoolation2](https://sourceforge.net/p/popoolation2/wiki/Tutorial/).
 
 `java -ea -Xmx7g -jar <popoolation2-path>/mpileup2sync.jar --input combined.mpileup --output combined_java.sync --fastq-type sanger --min-qual 10 --threads 20`
-
 
 
 ## 4. Estimation of allele frequency
@@ -294,6 +293,35 @@ Where,
 
 ## 7. Variants calling and annotation
 <a name="section-11"></a>
+
+This section will focus on detecting and annotating variants (SNPs/Indels) using PoolSeq data. We are going to use [VarScan](https://varscan.sourceforge.net/using-varscan.html#v2.3_mpileup2cns) for that. [VarScan](https://varscan.sourceforge.net/using-varscan.html#v2.3_mpileup2cns) is a command line-based tools for variant calling and its written  in Java programming language. It employs heuristic and statistic thresholds based on user-defined criteria to call variants using SAMtools mpileup data as input. It is therefore designed to detect SNPs/indels in individual and pooled samples [Koboldt et al., 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4278659/). 
+You need to download the latest version of VarScan to run the variant calling job. For more informations, please visit the documentation [VarScan](https://varscan.sourceforge.net/using-varscan.html#v2.3_mpileup2cns). 
+How to run the SNPs/indels calling?
+In our case we ran it directly on bam files by reading the STDIN (standard input) bam files into samtools mpileup and pipe the output in java -jar mpileup2indel for indels calling or java -jar mpileup2snp for SNPs calling. Our command looks like this:
+### Variant calling
+#### For Indels calling:
+`samtools mpileup -Q 10 -q 10 -B -f /path/to/reference/VectorBase-61_AfunestusFUMOZ_Genome.fasta -b /path/to/bam_files/bam_files_list.txt  |  java -jar /path/to/varscan/VarScan.v2.3.9.jar mpileup2indel --min-coverage 10 --min-reads2 4 --min-avg-qual 10 --min-var-freq 0.01 --min-freq-for-hom 0.75 --p-value 0.05 --output-vcf 1 > /path/to/output/filename.Indels_calling.vcf`
+
+#### For SNPs calling:
+`samtools mpileup -Q 10 -q 10 -B -f /path/to/reference/VectorBase-61_AfunestusFUMOZ_Genome.fasta -b /path/to/bam_files/bam_files_list.txt  |  java -jar /path/to/varscan/VarScan.v2.3.9.jar mpileup2snp --min-coverage 10 --min-reads2 4 --min-avg-qual 10 --min-var-freq 0.01 --min-freq-for-hom 0.75 --p-value 0.05 --output-vcf 1 > /path/to/output/vcf/filename.SNPs_calling.vcf`
+Where:
+- --min-coverage represents the Minimum read depth at a position to make a call;
+- --min-reads2 represents the Minimum supporting reads at a position to call variants;
+- --min-avg-qual represents the Minimum base quality at a position to count a read;
+- --min-var-freq represents the Minimum variant allele frequency threshold;
+- --p-value represents the Default p-value threshold for calling variants.
+
+For `pooled samples`, It is preferable to specify higher minimum coverage but lower variant allele frequency thresholds (10 and 0.01 in our case for example).
+
+### Variant annotation
+After calling the variants using [VarScan](https://varscan.sourceforge.net/using-varscan.html#v2.3_mpileup2cns), we annotated them using [SnpEff](http://pcingola.github.io/SnpEff/) which is a bioinformatics tool used for annotating and predicting the effects of genomic/genetic variations, particularly SNPs and indels, on genomic elements, genes, and proteins. It is quite simple to run and widely used in genomics and genetics research to interpret the functional consequences of genetic variants and is particularly valuable for understanding the impact of variations in coding regions of genes. It guides you on which genes to focus for further analyses.
+[SnpEff](http://pcingola.github.io/SnpEff/) takes genetic variants in various formats (VCF in our case) as input and annotates them by identifying their locations within the genome and determining their functional impacts. It classifies variants as synonymous, non-synonymous, missense, frameshift, stop-gain, and many other categories based on their impact on genes and proteins. To run the variant annotation and prediction, you need to build a database according to the organism on which you are working. For that, please visit the documentation [SnpEff](http://pcingola.github.io/SnpEff/).
+How to run SnfEff ?
+
+`java -Xmx8g -jar SnpEff.jar output.vcf Organism.Database > output.annotated.vcf`
+
+At the end of the job, you can use [SnpSift](http://pcingola.github.io/SnpEff/snpsift/introduction/)to extract your fields of interest for further analyses.
+
 
 
 # II. [Metagenomic analysis pipeline](#section-1)
