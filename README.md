@@ -5,7 +5,7 @@ Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.
 ##### Hi there 👋 😁
 
 I'm a PhD student in Cameroon.
-My research currently focused on applying MultiOMICs on major malaria vectors to detect novel genetic markers and microbial signature driving widespread of insecticide super-resistance to track gene flow and developing more effective strategies for vector control, ultimately contributing to efforts to eradicate malaria. Shell, python and R scripts below described the pipeline (OMIcsTouch) used for the analyses and visualization of the Poolseq GWAS data.
+My current research is centered around the application of Multi-omics techniques to major malaria vectors. The goal is to detect novel genetic markers and microbial signatures that underlie the widespread emergence of insecticide super-resistance. By tracking gene flow and employing these findings, we aim to develop more effective strategies for vector control, ultimately contributing to the global efforts to eradicate malaria. Below, I've described the pipeline, known as OMIcsTouch, that we use for the analysis and visualization of the Poolseq GWAS data. This comprehensive approach allows us to gain deeper insights into the mechanisms driving resistance and inform control measures.
 
 ## [Features](#section-1)
 `OMIcsTouch` is a computational pipeline base on shell, python and R script designed to analyse Illumina Whole Genome data of any organism including *Anopheles* spp (*funestus* and *gambiae*). It performs Poolseq and Metagenomic analyses including pairwise genetic differentiation between populations, GWAS,  Meta-taxomomy, differential abundance analysis, diversity analyses, selective sweeps analyses, variant calling and annotation. The workflow can perform these analyses on illumina paired-end PoolSeq data. This pipeline combines several Bioinformatics tools available in various repository. Due to its automated scripts, this tool enables individuals who are not experts in bioinformatics to easily analyze their omics data without requiring extensive bioinformatics training. It also offers the advantage of time-saving efficiency.
@@ -37,7 +37,7 @@ My research currently focused on applying MultiOMICs on major malaria vectors to
 Before everything. how to install the OMIcsTouch ?
 To get started, simply clone the repository to your local machine or high-performance computing (HPC) environment. Then, follow the workflow carefully. Additionally, we have plans to further automate this workflow in the future by incorporating the `Snakemake` Workflow System Management (WfSM) like done for [RNA-seq-Pop](https://github.com/sanjaynagi/rna-seq-pop) that i recommend for those having RNAseq data to analyse. Thanks to @sanjaynagi for the fantastic tool.
 
-Installtion: `git clone https://github.com/Gadji-M/Gadji-M_PoolSeq_GWAS_OMIcsTouch/`
+Installation: `git clone https://github.com/Gadji-M/Gadji-M_PoolSeq_GWAS_OMIcsTouch/`
 
 ## Bioinformatics Tools
 <a name="section-2"></a>
