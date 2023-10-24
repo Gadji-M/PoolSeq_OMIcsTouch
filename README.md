@@ -5,11 +5,10 @@ Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.
 ##### Hi there 👋 😁
 
 I'm a PhD student in Cameroon.
-I'm currently working on multiOMICs data to identify signatures of positive selection associated to resistance escalation in major malaria vectors.
-Shell, python and R scripts below described the pipeline used for the analyses and visualization of the Poolseq GWAS data.
+My research currently focused on applying MultiOMICs on major malaria vectors to detect novel genetic markers and microbial signature driving widespread of insecticide super-resistance to track gene flow and developing more effective strategies for vector control, ultimately contributing to efforts to eradicate malaria. Shell, python and R scripts below described the pipeline (OMIcsTouch) used for the analyses and visualization of the Poolseq GWAS data.
 
 ## [Features](#section-1)
-OMIcsTouch is a computational pipeline base on shell, python and R script to analyse Illumina Whole Genome data of any organism including Anopheles spp (funestus and gambiae). It performs Poolseq and Metagenomic analyses including pairwise genetic differentiation among population, GWAS,  Meta-taxomomy, differential abundance analysis, diversity analyses, selective sweeps analyses, variant calling and annotation. The workflow can perform these analyses on illumina paired-end PoolSeq data. This pipeline combines several Bioinformatics tools available in various repository. Because, it has automated scripts, it allows non Bioinformaticians to easely analyse thier Omics data without needing a lot of Bioinformatics trainings and it's time saving as well.
+`OMIcsTouch` is a computational pipeline base on shell, python and R script designed to analyse Illumina Whole Genome data of any organism including *Anopheles* spp (*funestus* and *gambiae*). It performs Poolseq and Metagenomic analyses including pairwise genetic differentiation between populations, GWAS,  Meta-taxomomy, differential abundance analysis, diversity analyses, selective sweeps analyses, variant calling and annotation. The workflow can perform these analyses on illumina paired-end PoolSeq data. This pipeline combines several Bioinformatics tools available in various repository. Due to its automated scripts, this tool enables individuals who are not experts in bioinformatics to easily analyze their omics data without requiring extensive bioinformatics training. It also offers the advantage of time-saving efficiency.
 
 ## Table of Contents
 
@@ -35,6 +34,10 @@ OMIcsTouch is a computational pipeline base on shell, python and R script to ana
 8. #### [Microbial differential abundance analysis](#section-20)
 9. #### [Microbial functional profiling](#section-21)
 
+Before everything. how to install the OMIcsTouch ?
+To get started, simply clone the repository to your local machine or high-performance computing (HPC) environment. Then, follow the workflow carefully. Additionally, we have plans to further automate this workflow in the future by incorporating the `Snakemake` Workflow System Management (WfSM) like done for [RNA-seq-Pop](https://github.com/sanjaynagi/rna-seq-pop) that i recommend for those having RNAseq data to analyse. Thanks to @sanjaynagi for the fantastic tool.
+
+Installtion: `git clone https://github.com/Gadji-M/Gadji-M_PoolSeq_GWAS_OMIcsTouch/`
 
 ## Bioinformatics Tools
 <a name="section-2"></a>
@@ -240,6 +243,12 @@ When the Job is done, please run this command line to covert and format the fst 
 
 `perl path/to/popoolation2_1201/export/pwc2igv.pl --input path/to/fst/files --output path/to/output/`
 
+Once you have finished with the pairwise Fst computation, you can use the `Fst_plot.R` script i wrote to visualize your output and analyse differentiated regions.
+You will have a plot like below wrapped according to chromosome. 😁 😁
+![Alt Text](Fst_plot.png)
+Fig 2. Pairwise Fst plot between two divergent populations. The strong signal observed on 1 suggests a major region of genetic differentiation between the two populations. 
+Futher analysis should target this region of interest using fine-scale mapping to detect major allele driving the trait of interest.
+Woooooowwwwww, we've achieved a great job so far 😌😌😌😌.
 
 ## 6. Detection of evidence of Selective Sweeps
 <a name="section-10"></a>
@@ -311,7 +320,8 @@ Where:
 - --min-var-freq represents the Minimum variant allele frequency threshold;
 - --p-value represents the Default p-value threshold for calling variants.
 
-For `pooled samples`, It is preferable to specify higher minimum coverage but lower variant allele frequency thresholds (10 and 0.01 in our case for example).
+For `pooled samples`, It is preferable to specify higher minimum coverage but lower variant allele frequency thresholds (10 and 0.01 in our case for example). 
+For detection and validation of Indels, Structural variants, duplications, inversions, please visualize you final alignment bam files using alingment viewer like [IGV](https://igv.org) which i recommend. Don't hesitate to go throught the documentation to learn how to detect those genetic variations.
 
 ### Variant annotation
 After calling the variants using [VarScan](https://varscan.sourceforge.net/using-varscan.html#v2.3_mpileup2cns), we annotated them using [SnpEff](http://pcingola.github.io/SnpEff/) which is a bioinformatics tool used for annotating and predicting the effects of genomic/genetic variations, particularly SNPs and indels, on genomic elements, genes, and proteins. It is quite simple to run and widely used in genomics and genetics research to interpret the functional consequences of genetic variants and is particularly valuable for understanding the impact of variations in coding regions of genes. It guides you on which genes to focus for further analyses.
@@ -321,7 +331,6 @@ How to run SnfEff ?
 `java -Xmx8g -jar SnpEff.jar output.vcf Organism.Database > output.annotated.vcf`
 
 At the end of the job, you can use [SnpSift](http://pcingola.github.io/SnpEff/snpsift/introduction/)to extract your fields of interest for further analyses.
-
 
 
 # II. [Metagenomic analysis pipeline](#section-1)
@@ -444,9 +453,129 @@ Alternatively, you can use this simple command line to extract sequences of inte
 ## 7. Microbial diversity analysis
 <a name="section-19"></a>
 
+Microbial diversity analysis involves studying the alpha diversity which is a measure that quantifies the diversity of species within a specific environment. It measures the number of species (species richness) and their relative abundance (species evenness) in a single community or sample and  beta diversity refers as between-sample/population or between-site diversity, quantifies the differences in species composition (species identities) and relative abundances between different locations or habitats.
+
+Common metrics for alpha diversity include species richness (the count of unique species) and indices like the Shannon-Wiener index and Simpson's diversity index, which take into account both species richness and evenness.
+##### Note: Alpha diversity provides information about the diversity within a particular population or sample and is used to answer questions like "How many different species are present in a given area?" whereas Beta diversity is concerned with the variation in species composition and the turnover of species across different sites. It helps answer questions like "How do species assemblages change as you move from one habitat to another?".
+
+To calculate alpha and beta-diversity measures, we processed the `kraken.reports` files by filtering and aggregating them to create tables. These tables were subsequently used as input data in [Phyloseq](https://joey711.github.io/phyloseq/), and any features associated with control samples (H2O and C2H5OH) were removed during the filtering process, thanks to [decontam](https://benjjneb.github.io/decontam/vignettes/decontam_intro.html/) for that.
+
+#### Alpha-diversity estimation
+After creating our Phyloseq class object, alpha diversity was calculated and plotted using the below commands:
+This line calculates alpha diversity measures using the `estimate_richness` phyloseq function. The results are stored in the object alpha_diversity. The diversity measures being calculated here are Chao1, ACE, Shannon, Simpson and Fisher diversity indexes.
+`alpha_diversity <- estimate_richness(Phyloseq_class_object)`
+
+In this line, the Shannon's diversity index (alpha diversity) values are extracted from the alpha_diversity object and converted into a data frame. The resulting data frame is stored back in the variable alpha_diversity.
+`alpha_diversity<-as.data.frame(alpha_diversity$Shannon)` 
+
+This line extracts the "population" information from the sample data associated with the Phyloseq_class_object data frame. The extracted population information is converted into a factor variable and stored in the object groups. This is typically used to define groups or categories for further analysis.
+`groups <- factor(sample_data(Phyloseq_class_object)$population)`
+
+Here, a new data frame named alpha_df is created. It contains two columns: "Alpha," which holds the alpha diversity values (Shannon's index), and "Group," which holds the group (population) information for each sample necessary visualization.
+`alpha_df <- data.frame(Alpha = alpha_diversity, Group = groups)`
+
+Now we can display our plot.
+The ggplot2 function below was used for plotting:
+
+`shannon_box<-ggplot(alpha_diversity,
+                    aes(x=concentration,
+                        y=Shannon,
+                        fill=phenotype)) + geom_boxplot()+
+  theme(axis.title.x = element_text(size = 22, face = "bold"),
+        axis.title.y = element_text(size = 22, face = "bold"),
+        panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.line = element_line(colour = "black"),
+        strip.text = element_text(size = 18),
+        strip.background = element_blank(),
+        axis.text.y = element_text(size = 25, face = "bold"),
+        axis.text.x = element_text(size = 30, face = "bold"),
+        legend.text = element_text(size = 22),  # Set the legend text size
+        legend.title = element_text(size = 25, face = "bold"))  # Set the legend title size)#makestitlessmaller`
+
+print(shannon_box) # To display the box plot.
+
+We then look at the difference in the microbial composition between each group by applying a pairwise Wilcoxon rank sum test as we had more than two groups to compare.
+The function `pairwise_result <- pairwise.wilcox.test(alpha_df$alpha_diversity.Shannon, alpha_df$Group, p.adjust.method = "fdr")` was used for that.
+This function is used to compare groups for significant differences and applies the Wilcoxon rank sum test (also known as the Mann-Whitney U test) between pairs of groups. The p.adjust.method argument allows to adjust or correct p-values for multiple comparisons. In this case, "fdr" indicates the method to control the false discovery rate.
+
+#### Beta-diversity estimation
+Bray-Curtis dissimilarity distance matrix was calculated and plot in non-metric multidimensional scaling  (NMDS) using the functions `distance()` and  `ordinate` and `plot_ordination` from phyloseq package.
+NMDS is a dimensionality reduction technique often used for visualizing and exploring dissimilarity or distance data in a reduced-dimensional space.
+
+#Calculate Bray-Curtis dissimilarity distance matrix
+`distance_matrix <- phyloseq::distance(phyloseq_class_object, method = "bray")`
+
+#Perform non-metric multidimensional scaling (NMDS) on Phyloseq class object
+`data.ord <- ordinate(phyloseq_class_object, "NMDS", "bray")`
+
+#Plot dissimilarity based on NMDS
+`plot_ordination(phyloseq_class_object, data.ord, color="population", shape="phenotype", 
+  title="NMDS Plot" ) +
+  theme(
+    axis.title.x = element_text(size = 22, face = "bold"),
+    axis.title.y = element_text(size = 22, face = "bold"),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(colour = "black"),
+    strip.text = element_text(size = 25, face = "bold"),
+    strip.background = element_blank(),
+    axis.text.y = element_text(size = 30, face = "bold"),
+    axis.text.x = element_text(size = 30, face = "bold"),
+    legend.text = element_text(size = 22), 
+    legend.title = element_text(size = 25, face = "bold")
+  ) + 
+  geom_point(size = 10) +
+  geom_text(aes(label = population), size = 5,nudge_x = -0.005,  nudge_y = 0.020)  # Increase the size of text labels on points`
+
+It's left now to perform a test to assess the impact of insecticide exposure on our different phenotypes. To do that, adonis2 function, typically found in the vegan package in R was used to perform a permutational multivariate analysis of variance (PERMANOVA) on a distance matrix.
+
+`result_adonis <- adonis2(distance_matrix ~ population , data = sample_metadata, permutations = 999, method = "bray-curtis")`
+
+The result_adonis object will contain the results of the PERMANOVA analysis, including statistics and p-values, which can be used to assess whether there are significant differences in multivariate dispersion among the different phenotypes/populations. This analysis is useful for testing the effect of phenotype or population on the data while accounting for multivariate variation.
+
+#### Note: Please go through [Phyloseq](https://joey711.github.io/phyloseq/) and [decontam](https://benjjneb.github.io/decontam/vignettes/decontam_intro.html) documentation for more details.
+
 ## 8. Microbial differential abundance analysis
 <a name="section-20"></a>
+Differential abundance analyses were done using [DEseq2](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) and validated using [ANCOM-BC2](https://bioconductor.org/packages/release/bioc/vignettes/ANCOMBC/inst/doc/ANCOMBC2.html).
+DESeq2 is a powerful R/Bioconductor package for differential abundance analysis of count data, including microbiome data. It's a popular choice for analyzing microbial differential abundance in microbiome studies. 
+Analysis of Compositions of Microbiomes with Bias Correction 2 (ANCOM-BC2) is a methodology for performing differential abundance (DA) analysis of microbiome count data. This version extends and refines the previously published Analysis of Compositions of Microbiomes with Bias Correction .
+#### Note: For differential abundance analysis, taxa representing at least 1% of the overall obundance were used. These taxa constitute the top abundant taxa in our sample pools.
+
+The function  `phyloseq_to_deseq2()` was invoked to convert the phyloseq class object into deseq2 object before processing. This function is key because it does all the complicated DESeq2 work.
+
+The following two lines actually do all the complicated DESeq2 work. The first line converts your phyloseq-format microbiome data into a DESeqDataSet with dispersions estimated, using the experimental design formula, also shown (the ~phenotype in our case). The DESeq function (second line) does the rest of the testing, in this case with default testing framework, but you can actually use alternatives.
+
+`diagdds = phyloseq_to_deseq2(phyloseq_class_object, ~phenotype)`
+`diagdds = DESeq(diagdds, test="Wald", fitType="parametric")`
+
+The following results function call creates a table of the results of the tests. Very fast. I then filtered the adjusted p-value less than the defined threshold alpha=5%. The rest of this example is just formatting the results table with taxonomic information for nice visualization.
+
+`res = results(diagdds, cooksCutoff = FALSE)
+alpha = 0.05
+sigtab = res[which(res$padj < alpha), ]
+sigtab = cbind(as(sigtab, "data.frame"), as(tax_table(Phyloseq_class_object)[rownames(sigtab), ], "matrix"))`
+
+`write.table(sigtab, "filename.txt", sep = "\t", dec = ".", row.names = T)`
+
+ANCOM-BC2 was then run to validate the findings obtained from DESeq2 using the command bellow:
+
+`ancombc2_results <- ancombc2(phyloseq_class_object, tax_level = "Species",
+                             group = "phenotype", prv_cut = 0.10,
+                             alpha = 0.05, fix_formula = "population" + "phenotype",
+                            p_adj_method = "fdr",
+                            verbose = T,
+                            n_cl = 5, global = FALSE, pairwise = TRUE, 
+                            dunnet = FALSE, trend = FALSE)  # Adjust parameters as needed`
+
+#### Note: Please go throught [DEseq2](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) and [ANCOM-BC2](https://bioconductor.org/packages/release/bioc/vignettes/ANCOMBC/inst/doc/ANCOMBC2.html) documentations for more details on how to run the commands.                            
 
 ## 7. Microbial functional profiling
 <a name="section-21"></a>
 
+Ongoing.............
+
+😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎😎🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔
