@@ -12,6 +12,24 @@ step_sizes=""
 pool_size=""
 popoolation2_path=""
 
+
+# Function to display usage instructions
+usage() {
+  echo "Usage: $0 [-i input_file] [-o output_dir] [-c min_count] [-C min_coverage] [-f max_coverage] [-w window_sizes] [-s step_sizes] [-p pool_size] [-P popoolation2_path] [-F min_covered_fraction]"
+  echo "Options:"
+  echo "  -i input_file               Path to the input file."
+  echo "  -o output_dir               Path to the output directory."
+  echo "  -c min_count                Minimum count for SNP calling."
+  echo "  -C min_coverage             Minimum coverage for SNP calling."
+  echo "  -f max_coverage             Maximum coverage for SNP calling."
+  echo "  -w window_sizes             Comma-separated list of window sizes."
+  echo "  -s step_sizes               Comma-separated list of step sizes."
+  echo "  -p pool_size                Pool size for SNP calling."
+  echo "  -P popoolation2_path        Path to the Popoolation2 directory."
+  echo "  -F min_covered_fraction     Minimum covered fraction for SNP calling."
+  exit 1
+}
+
 # Parse command-line options
 while getopts "i:o:c:C:f:w:s:p:P:F:" opt; do
   case "$opt" in
