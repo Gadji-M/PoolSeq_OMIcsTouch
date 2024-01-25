@@ -37,7 +37,7 @@ My current research is centered around the application of Multi-omics techniques
 Before everything. how to install the OMIcsTouch ?
 To get started, simply clone the repository to your local machine or high-performance computing (HPC) environment. Then, follow the workflow carefully. Additionally, we have plans to further automate this workflow in the future by incorporating the `Snakemake` Workflow System Management (WfSM) like done for [RNA-seq-Pop](https://github.com/sanjaynagi/rna-seq-pop) that i recommend for those having RNAseq data to analyse. Thanks to @sanjaynagi for the fantastic tool.
 
-Installation: `git clone https://github.com/Gadji-M/Gadji-M_PoolSeq_GWAS_OMIcsTouch/`
+Installation: `git clone https://github.com/Gadji-M/PoolSeq_OMIcsTouch/`
 
 ## Bioinformatics Tools
 <a name="section-2"></a>
