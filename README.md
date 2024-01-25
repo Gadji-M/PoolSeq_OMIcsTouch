@@ -1,4 +1,4 @@
-![Alt Text](Omics_Touch_logo.png)
+![image](https://github.com/Gadji-M/PoolSeq_OMIcsTouch/assets/112093977/0be3f8de-eedf-47e7-b2d2-7c108ccbb473)![Alt Text](Omics_Touch_logo.png)
 
 Contact: gadji.mahamat@crid-cam.net / gadji.mahamat@fasciences-uy1.cm / charles.wondji@crid-cam.net *
 
@@ -53,11 +53,14 @@ Below are the tools and versions used during the MultiOMICs analyses on a server
 - poolfstat
 - Picard tool
 - grenedalf
+- Varscan
+- smoove
+- INSurveYor
 - freebayes v1.3.6
 - awk 5.1.0
 - SnpEff 5.1d
 - WindowScanR
-- R 4.2.3
+- R 4.2.3 or latest
 - Kraken2 database
 - Chocophlan, metaphlan and HumanN-3.6 databases
 - Uniref database
@@ -331,6 +334,34 @@ How to run SnfEff ?
 `java -Xmx8g -jar SnpEff.jar output.vcf Organism.Database > output.annotated.vcf`
 
 At the end of the job, you can use [SnpSift](http://pcingola.github.io/SnpEff/snpsift/introduction/)to extract your fields of interest for further analyses.
+
+
+### For complex structural variants calling
+Complex structural variants refer to intricate alterations in the genomic structure of an organism. These variations involve a combination of different types of structural changes, such as duplications, deletions, inversions, translocations, and insertions, occurring simultaneously or in a coordinated manner within the genome. Unlike simple structural variants that involve only one type of alteration, complex structural variants may comprise multiple breakpoints and complex rearrangements, making their analysis and interpretation more challenging.
+Here, we are going to show you how to detect such variants using tools-based approach and IGV-based visualization appproach. First of all, you need to install [INSurveYor](https://github.com/kensung-lab/INSurVeyor) and [smoove](https://github.com/brentp/smoove) through conda, docker or by simply cloning their respective repositories on your PC or server. [INSurveYor](https://github.com/kensung-lab/INSurVeyor) is use to call insertions whereas [smoove](https://github.com/brentp/smoove) will complement the calling by detecting duplications,  deletions and inversions. Please have a look on both tools documentation for more details.
+
+How to run INSurveYor?
+By running this `python3 INSurVeyor/insurveyor.py --help`, you can have the help page including positional arguments and options to run the insertions calling.
+ Before running the exact command line, ensure that the MC and the MQ tag are present for all primary alignment bam files. If not,  you can add the MQ tag using `Picard FixMateInformation` from [Picard tools](http://broadinstitute.github.io/picard/command-line-overview.html#FixMateInformation).
+ 
+ Now you can run this command `python3 INSurVeyor/insurveyor.py --threads 10 --min-insertion-size 1000 bam_file working_dir reference_fasta`
+ Where,
+ - --threads represents the number of threads to use for parallel processing depending on available ressources and power of you PC (in the command line, i used 10);
+ - --min-insertion-size represents the minimum insertion size to be call during the analysis as small sizes will always be reported (in the command, i used 1000 base on the fact that large structural variants involved larger DNA segments of 1kb length and more);
+ - bam_file represents the bam alignment file to be used as input for insertion calling;
+ - working directory is where the final output in vcf format (name.pass.vcf.gz which is the file containing the SVs) will be stored. At the end of the JOB, you can use bcftools to filter the variants based on your needs;
+ - reference_fasta is the indexed genome file in fasta format.
+
+To complement the SVs calling, use smoove to detect DUP, DEL and INV by running this command:  `smoove call -x --name Name --exclude $bed --fasta $reference_fasta -p $threads --genotype /path/to/*.bam`, this will require several dependencies from python tools, see the documentation for more details.
+Where,
+- --name is the project name use in the output files;
+- --exclude represents genomic regions you don't want to analyse (you want to exclude), you can just put the chromosome names or provide a bed file with genomic coordinates;
+- --fasta is the indexed reference fasta file;
+- -p is the number of threads for parallel processing;
+- --genotype is a flag indicating that the samples need to be genotyped;
+- --outdir is the directory where are stored results.
+Optionally, you can annotate your variants using `smoove annotate` command, but you must ensure that your gff file matches the format used by smoove, which include gene names.
+Now you have all your structural variants and you alignment files, you can input them into IGV for visualization.
 
 
 # II. [Metagenomic analysis pipeline](#section-1)
